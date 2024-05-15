@@ -1,69 +1,73 @@
-#include <algorithm> // for std::clamp
-#include <cmath> // for std::hypot
+#include <cmath> // синус же!
+#include <iostream> //вывод в консоль информации для дебага
+
+#define RAYLIB_TILESON_IMPLEMENTATION
+#include "src/raylib-tileson/raylib-tileson.h"
 
 #include <raylib.h>
+#include "src/player.h"
+#include "src/scene.h"
 
 // Размеры экрана
-constexpr int SCREEN_WIDTH = 1024;
-constexpr int SCREEN_HEIGHT = 768;
-
-// Фоновые цвета для интерполяции
-constexpr Color COLOR_BG_A = { 30, 10, 10, 255 }; // темно-красный
-constexpr Color COLOR_BG_B = { 10, 10, 30, 255 }; // темно-синий
-
-// Функция линейной интерполяции
-constexpr double lerp(double a, double b, double t)
-{
-  return a + t * (b - a);
-}
-
-// Функция линейной интерполяции цветов
-Color InterpolateColor(Color a, Color b, double t)
-{
-  double ar = (double)a.r / 255.0;
-  double ag = (double)a.g / 255.0;
-  double ab = (double)a.b / 255.0;
-  double br = (double)b.r / 255.0;
-  double bg = (double)b.g / 255.0;
-  double bb = (double)b.b / 255.0;
-
-  t = std::clamp(t, 0.0, 1.0);
-  double cr = lerp(ar, br, t);
-  double cg = lerp(ag, bg, t);
-  double cb = lerp(ab, bb, t);
-
-  return Color { 
-    (unsigned char)(cr * 255.0),
-    (unsigned char)(cg * 255.0),
-    (unsigned char)(cb * 255.0),
-    255
-  };
-}
+constexpr int SCREEN_WIDTH = 256 * 4;
+constexpr int SCREEN_HEIGHT = 224 * 4;
 
 int main()
 {
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Hello, raylib!");
   SetTargetFPS(60);
+  // Пока что игровая логика рассчитана на работу в 60 FPS.
+  // Было бы круто снять потолок FPS, но мне лень ¯\_(ツ)_/¯
+  std::cout << GetWorkingDirectory() << std::endl; // Чтобы проверить, с какой директорией работает программа
 
-  while (!WindowShouldClose()) {
+  Map map = LoadTiled("res/levels/stage1.tmj");
+
+  //Поддержка масштабирования игрового окна реализована так:
+  //Сначала мы рисуем кадр в виртуальном полотне, затем масштабируем его до нужного разрешения
+  //Хз, будет ли работать фуллскрин, лул
+  int game_screen_width = 256;
+  int game_screen_height = 240;
+  Color bg = BLUE;
+  RenderTexture2D virtual_canvas = LoadRenderTexture(game_screen_width, game_screen_height);
+  int scale = 4; // Масштаб увеличения
+  SetTextureFilter(virtual_canvas.texture, TEXTURE_FILTER_POINT); 
+  //Целочисленное масштабирование (2:1, 4:1...) реализуется с помощью фильтра "ближайший сосед"
+  SetWindowMinSize(320, 240); //Меньше 320x240 окно отрисовывать запрещаем
+
+
+  Scene mngtest;
+  mngtest.ProcessLevel(map);
+
+  while (!WindowShouldClose()) { // Окно закрывается нажатием ESC или крестика
     // Обновить данные
     // ---------------
-    Vector2 mouse = GetMousePosition();
-    double mouse_percentage = 
-      std::hypot((double)mouse.x, (double)mouse.y) /
-      std::hypot((double)SCREEN_WIDTH, (double)SCREEN_HEIGHT);
 
-    // меняем цвет фона в зависимости от того, как далеко расположен курсор от левого верхнего края экрана
-    Color bg = InterpolateColor(COLOR_BG_A, COLOR_BG_B, mouse_percentage);
+    mngtest.Update();
+
+    //Отрисовка виртуального полотна
+    // ---------------
+
+    BeginTextureMode(virtual_canvas);
+      ClearBackground(bg);
+
+      mngtest.Draw();
+      DrawFPS(game_screen_width - 30, game_screen_height - 30);
+    EndTextureMode();
 
     // Отрисовать окно
     // ---------------
     BeginDrawing();
-      ClearBackground(bg);
-      DrawText("Hello, world!", 30, 30, 20, WHITE);
-      DrawFPS(SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
+      ClearBackground(BLACK);
+
+      DrawTexturePro(virtual_canvas.texture, Rectangle{ 0.0f, 0.0f, (float)virtual_canvas.texture.width, (float)-virtual_canvas.texture.height },
+                      Rectangle{ (GetScreenWidth() - ((float)game_screen_width*scale))*0.5f, (GetScreenHeight() - ((float)game_screen_height*scale))*0.5f,
+                      (float)game_screen_width*scale, (float)game_screen_height*scale }, Vector2{ 0, 0 }, 0.0f, WHITE);
     EndDrawing();
   }
+
+  mngtest.Clear();
+  UnloadRenderTexture(virtual_canvas);
+  UnloadMap(map);
 
   CloseWindow();
 }
