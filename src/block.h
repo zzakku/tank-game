@@ -3,9 +3,8 @@
 
 #include <raylib.h>
 #include "entity.h"
-
-// Заставлять каждый кирпич хранить весь атлас текстур - ужасно неоптимально, надо бы ввести механизм для возможности делить один файл текстур между произвольным
-// количеством сущностей...
+#include "textures.h"
+#include <string>
 
 // Кирпич:
 // Кирпич - твёрдый блок, разрушаемый любыми пулями. Одна пуля "откусывает" от кирпича 8x8 минимум один кусочек 4x4
@@ -14,7 +13,7 @@
 class Block : public Entity
 {
     private:
-    Texture2D graphics_ = LoadTexture("res/tilesetalt.png");   
+    Texture2D graphics_ = textures::GetTexture("blocks");   
     Rectangle framerec_;
     public:
     Block()
@@ -46,6 +45,14 @@ class Block : public Entity
     }
     void OnCollision(uint8_t other_id)
     {
+        switch (other_id)
+        {
+            case 5:
+            destroyable_ = true;
+            break;
+            default:
+            break;
+        }
         // Сюда реакцию на любую пулю
     }
 };
@@ -56,7 +63,7 @@ class Block : public Entity
 class Concrete : public Entity
 {
     private:
-    Texture2D graphics_ = LoadTexture("res/tileset.png");   
+    Texture2D graphics_ = textures::GetTexture("blocks");    
     Rectangle framerec_;
     public:
     Concrete()
@@ -97,7 +104,7 @@ class Concrete : public Entity
 class Bush : public Entity
 {
     private:
-    Texture2D graphics_ = LoadTexture("res/tileset.png");   
+    Texture2D graphics_ = textures::GetTexture("blocks");   
     Rectangle framerec_;
     public:
     Bush()
