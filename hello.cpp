@@ -16,16 +16,14 @@ constexpr int SCREEN_HEIGHT = 224 * 4;
 
 int main()
 {
-    std::cout << WindowShouldClose();
+
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Hello, raylib!");
     SetTargetFPS(60);
     SplashScreen s1;
     s1.Draw();
-    //CloseWindow();
-
-  //InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Hello, raylib!");
-
+  textures::InitTextures();
+  SetTargetFPS(60);
   // Пока что игровая логика рассчитана на работу в 60 FPS.
   // Было бы круто снять потолок FPS, но мне лень ¯\_(ツ)_/¯
   std::cout << GetWorkingDirectory() << std::endl; // Чтобы проверить, с какой директорией работает программа
@@ -76,6 +74,7 @@ int main()
   }
 
   mngtest.Clear();
+  textures::UnloadTextures();
   UnloadRenderTexture(virtual_canvas);
   UnloadMap(map);
 

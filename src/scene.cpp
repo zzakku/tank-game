@@ -3,8 +3,7 @@
 Scene::Scene()
 {
     actives_.insert(actives_.begin(), creator_->CreatePlayer());
-    //actives_.push_back(creator_->CreateBullet());
-    actives_.push_back(CreateBullet(*this));
+    (*actives_.begin())->SetScene(this);
 }
 
 Scene::~Scene()
@@ -22,6 +21,15 @@ void Scene::Clear()
 {
     actives_.clear();
     walls_.clear();
+}
+
+void Scene::SpawnProjectile(int x, int y, DirectionFacing direction)
+{
+    actives_.insert(actives_.begin(), creator_->CreateProjectile(x,y,direction));
+
+//    std::list<std::unique_ptr<Entity>>::iterator iter = actives_.begin();   
+
+    (*actives_.begin())->SetScene(this);
 }
 
 void Scene::Collide()
@@ -63,7 +71,37 @@ void Scene::Update()
         (*iter)->Update();
     }
 
-    Collide();  
+    Collide(); 
+
+    iter = actives_.begin();
+
+    /*for (iter = actives_.begin(); iter != actives_.end(); iter++)
+    {
+        auto next = std::next(iter);
+        if ((*iter)->CheckVitalSigns())
+        {
+            actives_.erase(iter);
+        }
+        iter = next;
+    }*/
+
+    while (iter != actives_.end()) { 
+        auto next = std::next(iter); 
+        if ((*iter)->CheckVitalSigns()) { 
+          actives_.erase(iter); 
+        } 
+        iter = next; 
+    } 
+
+    iter = walls_.begin();
+
+    while (iter != walls_.end()) { 
+        auto next = std::next(iter); 
+        if ((*iter)->CheckVitalSigns()) { 
+          walls_.erase(iter); 
+        } 
+        iter = next; 
+    } 
 }
 
 void Scene::Draw()
@@ -198,18 +236,22 @@ void Scene::ProcessTiles(tson::Layer& layer, RaylibTilesonData* data)
         if (corners[0])
         {
             walls_.insert(walls_.begin(), creator_->CreateWall(tilematerial, position.x, position.y + 8));
+            (*walls_.begin())->SetScene(this);
         }
         if (corners[1])
         {
             walls_.insert(walls_.begin(), creator_->CreateWall(tilematerial, position.x + 8, position.y + 8));
+            (*walls_.begin())->SetScene(this);
         }
         if (corners[2])
         {
             walls_.insert(walls_.begin(), creator_->CreateWall(tilematerial, position.x, position.y + 8 + 8));
+            (*walls_.begin())->SetScene(this);
         }
         if (corners[3])
         {
             walls_.insert(walls_.begin(), creator_->CreateWall(tilematerial, position.x + 8, position.y + 8 + 8));
+            (*walls_.begin())->SetScene(this);
         }
     }   
 }

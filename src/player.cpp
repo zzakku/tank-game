@@ -1,19 +1,19 @@
 #include "player.h"
 #include "scene.h"
 #include <iostream>
+#include "scene.h"
 
 Player::Player()
 {
     id_ = 1;
     hp_ = 1;
     grade_ = 1;
-    graphics_ = LoadTexture("res/player.png");
     SetTextureWrap(graphics_, TEXTURE_WRAP_CLAMP); // Задаёт способ отображения текстуры, часть которой вылезает за пределы картинки
     framerec_ = { 0.0f, 0.0f, static_cast<float>(graphics_.width/2), static_cast<float>(graphics_.height/4)};
     currentframe_ = 0;
     framespeed_ = 25;
     framecounter_ = 0;
-    pos_ = { 0.0f, 0.0f};
+    pos_ = { 104.0f, 180.0f};
     hitbox_ = {0.0f, 0.0f, 15.0f, 15.0f};
     direction_ = up;
     movespeed_ = 0.5f;
@@ -106,6 +106,11 @@ void Player::Update()
 
     hitbox_.x = pos_.x;
     hitbox_.y = pos_.y;
+
+    if (IsKeyPressed(KEY_Z))
+    {
+      scene_->SpawnProjectile(pos_.x + 15.0f, pos_.y + 15.0f, direction_);
+    }
 }
 
 void Player::OnCollision(uint8_t other_id)
