@@ -29,6 +29,9 @@ class EntityCreator
 {
     public:
     std::unique_ptr<Entity> CreatePlayer() { return std::make_unique<Player>(); } // new Player(); }
+
+    std::unique_ptr<Entity> CreateBullet(Scene& sc) { return std::make_unique<Bullet>(100.0f, 100.0f, up);}
+
     std::unique_ptr<Entity> CreateWall(TileMaterial material, int x = 0, int y = 0)
     {
         switch(material)
@@ -71,7 +74,7 @@ class EntityCreator
 
 class Scene
 {
-    private:
+private:
     std::list<std::unique_ptr<Entity>> actives_; // Список подвижных игровых сущностей (пули/танки)
     std::list<std::unique_ptr<Entity>> walls_; // Список кирпичей лул (орёл сюда же)
     // Возможно, полезно завезти список активных пуль, у них чуть иная логика коллизий с кирпичами (надо отслеживать точку попадания)
@@ -89,6 +92,10 @@ class Scene
     void Draw(); // Отрисовать сущности
     void Clear(); // Выгрузить всё содержимое менеджера сущностей
     void ProcessLevel(Map& map); // Обработать переданную
+
+    friend std::unique_ptr<Entity> CreateBullet(Scene& sc) { return std::make_unique<Bullet>(100.0f, 100.0f, up);}
+
+    std::list<std::unique_ptr<Entity>>& getActives() {return actives_;}
 };
 
 #endif // SRC_TANK_SCENE_H

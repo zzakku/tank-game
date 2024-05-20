@@ -14,7 +14,8 @@
 class Block : public Entity
 {
     private:
-    Texture2D graphics_ = LoadTexture("res/tilesetalt.png");   
+    //Texture2D graphics_ = LoadTexture("res/tilesetalt.png"); этого файла нет, но есть tileset.png
+    Texture2D graphics_ = LoadTexture("res/tileset.png");
     Rectangle framerec_;
     public:
     Block()

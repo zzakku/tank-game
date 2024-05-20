@@ -1,4 +1,5 @@
 #include "player.h"
+#include "scene.h"
 #include <iostream>
 
 Player::Player()
@@ -31,6 +32,12 @@ void Player::Draw()
 
 void Player::Update()
 {
+
+    if (IsKeyDown(KEY_SPACE))
+    {
+        //actives_.push_back(creator_->CreateBullet());
+    }
+
     if (IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_LEFT)) 
     {
       pos_.x += movespeed_;

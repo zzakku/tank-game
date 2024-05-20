@@ -3,6 +3,8 @@
 Scene::Scene()
 {
     actives_.insert(actives_.begin(), creator_->CreatePlayer());
+    //actives_.push_back(creator_->CreateBullet());
+    actives_.push_back(CreateBullet(*this));
 }
 
 Scene::~Scene()
