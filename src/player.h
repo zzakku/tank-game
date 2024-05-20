@@ -4,17 +4,10 @@
 #include <raylib.h>
 #include "entity.h"
 #include <stdint.h>
+#include "textures.h"
 
 
 // TO-DO: Класс "игрок", реализовать (потенциально) поддержку двух игроков и "автопилота" в демо-режиме
-
-enum DirectionFacing
-{
-    up,
-    down,
-    left,
-    right
-};
 
 class Player: public Entity
 {
@@ -22,7 +15,7 @@ class Player: public Entity
     uint8_t hp_; // Сколько попаданий пуль танк выдержит
     uint8_t grade_; // Уровень прокачки танка (нужно допилить павер-апы...)
     Rectangle framerec_; // Прямоугольник, в который мы помещаем текущий кадр анимации
-    Texture2D graphics_; // Текстура, откуда мы берём кадры анимации игрока
+    Texture2D graphics_ = textures::GetTexture("player"); // Текстура, откуда мы берём кадры анимации игрока
     int currentframe_; // Текущий кадр анимации
     int framespeed_; // Скорость анимации (FPS)
     int framecounter_; // Счётчик, отслеживающий удерживание ввода игроком (чтобы "двигать" анимацию)

@@ -15,6 +15,7 @@ constexpr int SCREEN_HEIGHT = 224 * 4;
 int main()
 {
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Hello, raylib!");
+  textures::InitTextures();
   SetTargetFPS(60);
   // Пока что игровая логика рассчитана на работу в 60 FPS.
   // Было бы круто снять потолок FPS, но мне лень ¯\_(ツ)_/¯
@@ -66,6 +67,7 @@ int main()
   }
 
   mngtest.Clear();
+  textures::UnloadTextures();
   UnloadRenderTexture(virtual_canvas);
   UnloadMap(map);
 

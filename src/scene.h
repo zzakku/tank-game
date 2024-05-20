@@ -4,15 +4,18 @@
 #define RAYLIB_TILESON_IMPLEMENTATION
 #include "raylib-tileson/raylib-tileson.h"
 #include "entity.h"
-#include "player.h"
-#include "block.h"
+//#include "player.h"
+//#include "block.h"
+//#include "projectile.h"
 #include <memory>
-
+#include <vector>
 
 // Уровень рисуем ровно в рамке. Shifth/v - необходимое смещение по координатам.
 constexpr int shifth = 16;
 constexpr int shiftv = 8;
 
+//std::list<std::unique_ptr<Entity>> actives_; // Список подвижных игровых сущностей (пули/танки)
+//std::list<std::unique_ptr<Entity>> walls_; // Список кирпичей лул (орёл сюда же)
 
 // Материал тайла, который нужно загрузить. Nuff said.
 
@@ -27,7 +30,21 @@ enum TileMaterial
 
 class EntityCreator
 {
+    private:
+    std::vector<Texture2D> textures_;
     public:
+    EntityCreator();
+    std::unique_ptr<Entity> CreatePlayer(); // new Player(); 
+    std::unique_ptr<Entity> CreateWall(TileMaterial material, int x = 0, int y = 0); // Создать блок 8x8 на позиции виртуального полотна (x,y)
+    std::unique_ptr<Entity> CreateProjectile(int x = 0, int y = 0, DirectionFacing direction = up);
+};
+
+/*class EntityCreator
+{
+    private:
+    std::vector<Texture2D> textures_;
+    public:
+    EntityCreator();
     std::unique_ptr<Entity> CreatePlayer() { return std::make_unique<Player>(); } // new Player(); }
     std::unique_ptr<Entity> CreateWall(TileMaterial material, int x = 0, int y = 0)
     {
@@ -46,7 +63,11 @@ class EntityCreator
             return nullptr;
         }
     } // Создать блок 8x8 на позиции виртуального полотна (x,y)
-};
+    std::unique_ptr<Entity> CreateProjectile(int x = 0, int y = 0, DirectionFacing direction = up)
+    {
+        return std::make_unique<Projectile>(x,y,direction);
+    }
+}; */
 
 // Обработчик уровней используется сценой для загрузки данных из файла .tmj...
 // Честно, не знаю, нужно ли вычленять эту логику из Scene
@@ -83,6 +104,7 @@ class Scene
     public:
     Scene();
     ~Scene();
+    void SpawnProjectile(int x = 0, int y = 0, DirectionFacing direction = up);
     void Collide(); // Проверка коллизий для всех активных сущностей
     void Remove(Entity* entity) { delete entity; } // "Вон того убей" <- НАДО ПОДПРАВИТЬ МЕТОД!!!
     void Update(); // Рассчитать состояние игрового поля
