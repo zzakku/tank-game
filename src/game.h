@@ -15,6 +15,58 @@
 // Кстати, предлагаю такие состояния:
 // Splash Screen (лого команды), TitleScreen (опция "начать игру", ВОЗМОЖНО "настройки"), Game, Options
 
+
+class ScreenState
+{
+public:
+    virtual void Update() = 0;
+    virtual void Draw() = 0;
+
+};
+
+//class Game: public ScreenState
+//{
+//private:
+//    bool pause_;
+//
+//};
+
+class SplashScreen : public ScreenState
+{
+public:
+
+    void Update() override
+    {
+        //тут пусто
+    }
+
+void Draw() override {
+        int framesCounter = 0;
+    BeginDrawing();
+
+    ClearBackground(RAYWHITE);
+    Texture2D logo = LoadTexture("res/logo.png");
+
+    SetTextureWrap(logo, TEXTURE_WRAP_CLAMP); // Задаёт способ отображения текстуры
+    Rectangle framerec_ = { 0.0f, 0.0f, static_cast<float>(logo.width), static_cast<float>(logo.height)};
+
+    Vector2 pos_ = { 0.0f, 0.0f};
+    DrawTextureRec(logo, framerec_, pos_, WHITE);
+
+    EndDrawing();
+    while (1)
+    {
+        framesCounter++;
+        if (framesCounter > 600) // ! счетчик не привязан к кадрам
+        {
+            break;
+        }
+
+    }
+    ClearBackground(BLACK);
+}
+};
+
 /*class ScreenState
 {
     public:

@@ -7,14 +7,21 @@
 #include <raylib.h>
 #include "src/player.h"
 #include "src/scene.h"
-
+#include "src/game.h"
 // Размеры экрана
 constexpr int SCREEN_WIDTH = 256 * 4;
 constexpr int SCREEN_HEIGHT = 224 * 4;
 
+
+
 int main()
 {
-  InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Hello, raylib!");
+
+
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Hello, raylib!");
+    SetTargetFPS(60);
+    SplashScreen s1;
+    s1.Draw();
   textures::InitTextures();
   SetTargetFPS(60);
   // Пока что игровая логика рассчитана на работу в 60 FPS.
@@ -31,7 +38,7 @@ int main()
   Color bg = BLUE;
   RenderTexture2D virtual_canvas = LoadRenderTexture(game_screen_width, game_screen_height);
   int scale = 4; // Масштаб увеличения
-  SetTextureFilter(virtual_canvas.texture, TEXTURE_FILTER_POINT); 
+  SetTextureFilter(virtual_canvas.texture, TEXTURE_FILTER_POINT);
   //Целочисленное масштабирование (2:1, 4:1...) реализуется с помощью фильтра "ближайший сосед"
   SetWindowMinSize(320, 240); //Меньше 320x240 окно отрисовывать запрещаем
 
