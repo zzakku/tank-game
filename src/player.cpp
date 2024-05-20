@@ -12,7 +12,7 @@ Player::Player()
     currentframe_ = 0;
     framespeed_ = 25;
     framecounter_ = 0;
-    pos_ = { 0.0f, 0.0f};
+    pos_ = { 104.0f, 180.0f};
     hitbox_ = {0.0f, 0.0f, 15.0f, 15.0f};
     direction_ = up;
     movespeed_ = 0.5f;
