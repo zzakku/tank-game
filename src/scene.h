@@ -4,18 +4,12 @@
 #define RAYLIB_TILESON_IMPLEMENTATION
 #include "raylib-tileson/raylib-tileson.h"
 #include "entity.h"
-//#include "player.h"
-//#include "block.h"
-//#include "projectile.h"
 #include <memory>
 #include <vector>
 
 // Уровень рисуем ровно в рамке. Shifth/v - необходимое смещение по координатам.
 constexpr int shifth = 16;
 constexpr int shiftv = 8;
-
-//std::list<std::unique_ptr<Entity>> actives_; // Список подвижных игровых сущностей (пули/танки)
-//std::list<std::unique_ptr<Entity>> walls_; // Список кирпичей лул (орёл сюда же)
 
 // Материал тайла, который нужно загрузить. Nuff said.
 
@@ -114,8 +108,6 @@ private:
     void Draw(); // Отрисовать сущности
     void Clear(); // Выгрузить всё содержимое менеджера сущностей
     void ProcessLevel(Map& map); // Обработать переданную
-
-    friend std::unique_ptr<Entity> CreateBullet(Scene& sc) { return std::make_unique<Bullet>(100.0f, 100.0f, up);}
 
     std::list<std::unique_ptr<Entity>>& getActives() {return actives_;}
 };

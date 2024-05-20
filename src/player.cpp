@@ -71,7 +71,7 @@ void Player::Update()
       framerec_.x = static_cast<float>(currentframe_)*static_cast<float>(graphics_.width/2);
       framerec_.y = 3*static_cast<float>(graphics_.height/4) - 0.1f;
     }
-    if (IsKeyDown(KEY_UP) && !IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_RIGHT))
+    if (IsKeyDown(KEY_UP) && !IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_DOWN))
     {
       pos_.y -= movespeed_;
       framecounter_++;
@@ -87,7 +87,7 @@ void Player::Update()
       framerec_.x = static_cast<float>(currentframe_)*static_cast<float>(graphics_.width/2);
       framerec_.y = -0.1f;
     }      
-    if (IsKeyDown(KEY_DOWN) && !IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_RIGHT))
+    if (IsKeyDown(KEY_DOWN) && !IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_UP))
     {
       pos_.y += movespeed_;
       framecounter_++;
