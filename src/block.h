@@ -7,8 +7,13 @@
 #include <string>
 
 // Кирпич:
-// Кирпич - твёрдый блок, разрушаемый любыми пулями. Одна пуля "откусывает" от кирпича 8x8 минимум один кусочек 4x4
-// (Четыре прямоугольника хитбокса?)
+// Кирпич - твёрдый блок, разрушаемый любыми пулями. Размер - 4x4, у всех других он 8x8.
+
+// Параметр corner:
+        // -----
+        // |0|1|
+        // |2|3|
+        // -----
 
 class Block : public Entity
 {
@@ -19,21 +24,36 @@ class Block : public Entity
     Block()
     {
         id_ = 2;
-        framerec_ = {0.0f, 0.0f, 8.0f, 8.0f};
+        framerec_ = {0.0f, 0.0f, 4.0f, 4.0f};
         pos_ = {0.0f, 0.0f};
         hitbox_ = framerec_;
     }
-    Block(int x, int y) : Block()
+    Block(int x, int y, uint8_t corner) : Block()
     {
         pos_.x = static_cast<float>(x);
         pos_.y = static_cast<float>(y);
         hitbox_.x = pos_.x;
         hitbox_.y = pos_.y;        
+        switch (corner)
+        {
+            case 0:
+            break;
+            case 1:
+            framerec_.x += 4.0f;
+            break;
+            case 2:
+            framerec_.y += 4.0f;
+            break;
+            case 3:
+            framerec_.y += 4.0f;
+            framerec_.x += 4.0f;
+            default:
+            // Вообще-то, это очень плохо...
+            break;
+        }
     } 
     ~Block()
     {
-        UnloadTexture(graphics_);
-        std::cout << "Hm?" << std::endl;
     }
     void Update()
     {
