@@ -35,7 +35,7 @@ void Projectile::Draw()
 
 void Projectile::OnCollision(uint8_t other_id)
 {
-  Sound sound_expload = LoadSound("..\\res\\soundtracks\\Explosion.wav");
+  Sound sound_expload = LoadSound("res/soundtracks/Explosion.wav");
   switch (other_id)
   {
     case 1: case 2: case 3: case 5: case 6:
