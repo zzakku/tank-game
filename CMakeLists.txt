@@ -18,6 +18,7 @@ set(${project}_SOURCES
         src/player.cpp
         src/block.h
         src/projectile.cpp
+        src/explosion.h
         src/entitycreator.cpp
         src/game.h
         hello.cpp

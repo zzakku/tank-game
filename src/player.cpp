@@ -124,7 +124,7 @@ void Player::Update()
         break;
 
       }
-      //scene_->SpawnProjectile(pos_.x + 15.0f, pos_.y + 15.0f, direction_);
+
     }
 }
 

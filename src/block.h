@@ -123,7 +123,6 @@ class Bush : public Entity
     } 
     ~Bush()
     {
-        UnloadTexture(graphics_);
     }
     void Update()
     {
@@ -171,7 +170,6 @@ class Invisible_entity : public Entity
     }
     void Draw()
     {
-
     }
     void OnCollision(uint8_t other_id)
     {
