@@ -109,7 +109,22 @@ void Player::Update()
 
     if (IsKeyPressed(KEY_Z))
     {
-      scene_->SpawnProjectile(pos_.x + 15.0f, pos_.y + 15.0f, direction_);
+      switch (direction_){
+        case up:
+        scene_->SpawnProjectile(pos_.x + 6.0f, pos_.y - 5.0f, direction_);
+        break;
+        case right:
+        scene_->SpawnProjectile(pos_.x + 16.0f, pos_.y + 6.0f, direction_);
+        break;
+        case down:
+        scene_->SpawnProjectile(pos_.x + 6.0f, pos_.y + 16.0f, direction_);
+        break;
+        case left:
+        scene_->SpawnProjectile(pos_.x - 4.0f, pos_.y + 6.0f, direction_);
+        break;
+
+      }
+      //scene_->SpawnProjectile(pos_.x + 15.0f, pos_.y + 15.0f, direction_);
     }
 }
 
@@ -119,7 +134,7 @@ void Player::OnCollision(uint8_t other_id)
   {
     case 1:
     break;
-    case 2: case 3:
+    case 2: case 3: case 6:
     switch (direction_)
     {
       case up:
