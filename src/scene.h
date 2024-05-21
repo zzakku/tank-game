@@ -37,6 +37,7 @@ class EntityCreator
     std::unique_ptr<Entity> CreatePlayer(); // new Player(); 
     std::unique_ptr<Entity> CreateWall(TileMaterial material, int x = 0, int y = 0); // Создать блок 8x8 на позиции виртуального полотна (x,y)
     std::unique_ptr<Entity> CreateProjectile(int x = 0, int y = 0, DirectionFacing direction = up);
+    std::unique_ptr<Entity> CreateInvisibleWall(int x, int y, bool is_horizontal);
 };
 
 /*class EntityCreator

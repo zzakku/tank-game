@@ -25,3 +25,7 @@ std::unique_ptr<Entity> EntityCreator::CreateProjectile(int x, int y, DirectionF
     {
         return std::make_unique<Projectile>(x,y,direction);
     }
+
+std::unique_ptr<Entity> EntityCreator::CreateInvisibleWall(int x, int y, bool is_horizontal){
+    return std::make_unique<Invisible_entity>(x,y,is_horizontal);
+}

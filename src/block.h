@@ -139,4 +139,41 @@ class Bush : public Entity
     }
 };
 
+class Invisible_entity : public Entity
+{
+    private:
+    public:
+    Invisible_entity()
+    {
+        id_ = 6;
+        hitbox_ = {0.0f, 0.0f, 0.0f, 0.0f};
+        //pos_.x = 0.0f;
+        //pos_.y = 0.0f;
+    }
+    Invisible_entity(int x, int y, bool is_horizontal) : Invisible_entity()
+    {
+        pos_.x = static_cast<float>(x);
+        pos_.y = static_cast<float>(y);
+
+        if (is_horizontal){
+            hitbox_ = {0.0f, 0.0f, 230.0f, 20.0f};
+        }
+        else{
+            hitbox_ = {0.0f, 0.0f, 20.0f, 230.0f};
+        }    
+    } 
+    void Update()
+    {
+        // idk
+    }
+    void Draw()
+    {
+
+    }
+    void OnCollision(uint8_t other_id)
+    {
+        // В оригинальной игре куст ни на что не реагировал
+    }
+};
+
 #endif // SRC_TANK_BLOCK_H

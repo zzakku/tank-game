@@ -2,6 +2,11 @@
 
 Scene::Scene()
 {
+    walls_.insert(walls_.begin(), creator_->CreateInvisibleWall(100.0f,0.0f,true));
+    walls_.insert(walls_.begin(), creator_->CreateInvisibleWall(100.0f,0.0f,false));
+    walls_.insert(walls_.begin(), creator_->CreateInvisibleWall(0.0f,230.0f,true));
+    walls_.insert(walls_.begin(), creator_->CreateInvisibleWall(100.0f,0.0f,false));
+
     actives_.insert(actives_.begin(), creator_->CreatePlayer());
     (*actives_.begin())->SetScene(this);
 }
