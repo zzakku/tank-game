@@ -109,7 +109,7 @@ void Player::Update()
 
     if (IsKeyPressed(KEY_Z))
     {
-      Sound sound_append_bullet = LoadSound("..\\res\\soundtracks\\gun.wav");
+      Sound sound_append_bullet = LoadSound("res/soundtracks/Gun.wav");
       PlaySound(sound_append_bullet);
       //std::cout<<"lol";
       switch (direction_){
