@@ -20,13 +20,30 @@ class Projectile : public Entity
         movespeed_ = 1.0f;
         hitbox_ = {0.0f, 0.0f, 3.0f, 3.0f};
         framerec_ = { 0.0f, 0.0f, static_cast<float>(graphics_.width/4), static_cast<float>(graphics_.height)};
-        pos_ = {0.0f, 0.0f};
+//        pos_ = {0.0f, 0.0f};
     }
     Projectile(int x, int y, DirectionFacing direction) : Projectile()
     {
         pos_.x = static_cast<float>(x);
         pos_.y = static_cast<float>(y);
+        hitbox_.x = pos_.x;
+        hitbox_.y = pos_.y;
         direction_ = direction;
+        switch(direction_)
+        {
+            case right:
+            framerec_.x = static_cast<float>((graphics_.width/4)*1);
+            break;
+            case left:
+            framerec_.x = static_cast<float>((graphics_.width/4)*3); 
+            break;
+            case up:
+            framerec_.x = static_cast<float>((graphics_.width/4)*4);
+            break;  
+            case down:
+            framerec_.x = static_cast<float>((graphics_.width/4)*2);
+            break;            
+        }
     }
     void Update();
     void Draw();

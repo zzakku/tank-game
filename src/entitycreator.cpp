@@ -2,6 +2,7 @@
 #include "player.h"
 #include "block.h"
 #include "projectile.h"
+#include "explosion.h"
 
 std::unique_ptr<Entity> EntityCreator::CreatePlayer() { return std::make_unique<Player>(); } // new Player(); }
 std::unique_ptr<Entity> EntityCreator::CreateWall(TileMaterial material, int x, int y)
@@ -28,4 +29,9 @@ std::unique_ptr<Entity> EntityCreator::CreateProjectile(int x, int y, DirectionF
 
 std::unique_ptr<Entity> EntityCreator::CreateInvisibleWall(int x, int y, bool is_horizontal){
     return std::make_unique<Invisible_entity>(x,y,is_horizontal);
+}
+
+std::unique_ptr<Entity> EntityCreator::CreateExplosion(int x, int y)
+{
+    return std::make_unique<Explosion>(x,y);    
 }

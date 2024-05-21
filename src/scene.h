@@ -32,40 +32,8 @@ class EntityCreator
     std::unique_ptr<Entity> CreateWall(TileMaterial material, int x = 0, int y = 0); // Создать блок 8x8 на позиции виртуального полотна (x,y)
     std::unique_ptr<Entity> CreateProjectile(int x = 0, int y = 0, DirectionFacing direction = up);
     std::unique_ptr<Entity> CreateInvisibleWall(int x, int y, bool is_horizontal);
+    std::unique_ptr<Entity> CreateExplosion(int x, int y);
 };
-
-/*class EntityCreator
-{
-    private:
-    std::vector<Texture2D> textures_;
-    public:
-    EntityCreator();
-    std::unique_ptr<Entity> CreatePlayer() { return std::make_unique<Player>(); } // new Player(); }
-
-    std::unique_ptr<Entity> CreateBullet(Scene& sc) { return std::make_unique<Bullet>(100.0f, 100.0f, up);}
-
-    std::unique_ptr<Entity> CreateWall(TileMaterial material, int x = 0, int y = 0)
-    {
-        switch(material)
-        {
-            case brick:
-            return std::make_unique<Block>(x, y);
-            break;
-            case concrete:
-            return std::make_unique<Concrete>(x, y);
-            break;
-            case bush:
-            return std::make_unique<Bush>(x, y);
-            break;
-            default:
-            return nullptr;
-        }
-    } // Создать блок 8x8 на позиции виртуального полотна (x,y)
-    std::unique_ptr<Entity> CreateProjectile(int x = 0, int y = 0, DirectionFacing direction = up)
-    {
-        return std::make_unique<Projectile>(x,y,direction);
-    }
-}; */
 
 // Обработчик уровней используется сценой для загрузки данных из файла .tmj...
 // Честно, не знаю, нужно ли вычленять эту логику из Scene
@@ -93,6 +61,7 @@ class Scene
 private:
     std::list<std::unique_ptr<Entity>> actives_; // Список подвижных игровых сущностей (пули/танки)
     std::list<std::unique_ptr<Entity>> walls_; // Список кирпичей лул (орёл сюда же)
+    std::list<std::unique_ptr<Entity>> explosions_; // Список взрывов (ну да...)
     // Возможно, полезно завезти список активных пуль, у них чуть иная логика коллизий с кирпичами (надо отслеживать точку попадания)
     // Ещё надо захардкодить координаты трёх точек спавна врагов и точку спавна игрока
     EntityCreator* creator_;
@@ -103,6 +72,7 @@ private:
     Scene();
     ~Scene();
     void SpawnProjectile(int x = 0, int y = 0, DirectionFacing direction = up);
+    void SpawnExplosion(int x = 0, int y = 0);
     void Collide(); // Проверка коллизий для всех активных сущностей
     void Remove(Entity* entity) { delete entity; } // "Вон того убей" <- НАДО ПОДПРАВИТЬ МЕТОД!!!
     void Update(); // Рассчитать состояние игрового поля

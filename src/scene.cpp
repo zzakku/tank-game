@@ -37,6 +37,13 @@ void Scene::SpawnProjectile(int x, int y, DirectionFacing direction)
     (*actives_.begin())->SetScene(this);
 }
 
+void Scene::SpawnExplosion(int x, int y)
+{
+    explosions_.insert(explosions_.begin(), creator_->CreateExplosion(x,y));
+
+    (*explosions_.begin())->SetScene(this);    
+}
+
 void Scene::Collide()
 {
     for (std::list<std::unique_ptr<Entity>>::iterator iter1 = actives_.begin(); iter1 != actives_.end(); iter1++)
@@ -78,17 +85,12 @@ void Scene::Update()
 
     Collide(); 
 
-    iter = actives_.begin();
-
-    /*for (iter = actives_.begin(); iter != actives_.end(); iter++)
+    for (iter = explosions_.begin(); iter != explosions_.end(); iter++)
     {
-        auto next = std::next(iter);
-        if ((*iter)->CheckVitalSigns())
-        {
-            actives_.erase(iter);
-        }
-        iter = next;
-    }*/
+        (*iter)->Update();
+    }    
+
+    iter = actives_.begin();
 
     while (iter != actives_.end()) { 
         auto next = std::next(iter); 
@@ -104,6 +106,16 @@ void Scene::Update()
         auto next = std::next(iter); 
         if ((*iter)->CheckVitalSigns()) { 
           walls_.erase(iter); 
+        } 
+        iter = next; 
+    } 
+
+    iter = explosions_.begin();
+
+    while (iter != explosions_.end()) { 
+        auto next = std::next(iter); 
+        if ((*iter)->CheckVitalSigns()) { 
+          explosions_.erase(iter); 
         } 
         iter = next; 
     } 
@@ -123,6 +135,11 @@ void Scene::Draw()
     iter = walls_.begin();
 
     for (iter = walls_.begin(); iter != walls_.end(); iter++)
+    {
+        (*iter)->Draw();
+    }
+
+    for (iter = explosions_.begin(); iter != explosions_.end(); iter++)
     {
         (*iter)->Draw();
     }

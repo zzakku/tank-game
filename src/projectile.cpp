@@ -1,4 +1,5 @@
 #include "projectile.h"
+#include "scene.h"
 
 void Projectile::Update()
 {
@@ -29,14 +30,16 @@ void Projectile::Update()
 void Projectile::Draw()
 {
     DrawTextureRec(graphics_, framerec_, pos_, WHITE);
+//    DrawRectangle(hitbox_.x, hitbox_.y, hitbox_.width, hitbox_.height, WHITE); <- если захочется отладить хитбокс
 }
 
 void Projectile::OnCollision(uint8_t other_id)
 {
   switch (other_id)
   {
-    case 1: case 2: case 3: case 5:
+    case 1: case 2: case 3: case 5: case 6:
     destroyable_ = true;
+    scene_->SpawnExplosion(pos_.x - hitbox_.width, pos_.y - hitbox_.height);
     break;
     default:
     break;
