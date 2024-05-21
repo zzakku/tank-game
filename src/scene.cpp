@@ -7,6 +7,8 @@ Scene::Scene()
     walls_.insert(walls_.begin(), creator_->CreateInvisibleWall(0.0f,224.0f,true)); //нижняя стена
     walls_.insert(walls_.begin(), creator_->CreateInvisibleWall(223.0f,0.0f,false)); //правая стена
 
+    walls_.insert(walls_.begin(), creator_->CreateEagle_base(96.0f, 208.0f));
+
     actives_.insert(actives_.begin(), creator_->CreatePlayer());
     (*actives_.begin())->SetScene(this);
 }

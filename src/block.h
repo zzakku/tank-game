@@ -197,4 +197,51 @@ class Invisible_entity : public Entity
     }
 };
 
+class Eagle_base : public Entity
+{
+private:
+    Texture2D graphics_ = textures::GetTexture("eagle");
+    Rectangle framerec_;
+public:
+    Eagle_base()
+    {
+        id_ = 9;
+        framerec_ = {0.0f, 0.0f, 16.0f, 16.0f};
+        pos_ = {0.0f, 0.0f};
+        hitbox_ = framerec_;
+    }
+    Eagle_base(int x, int y) : Eagle_base()
+    {
+        pos_.x = static_cast<float>(x);
+        pos_.y = static_cast<float>(y);
+        hitbox_.x = pos_.x;
+        hitbox_.y = pos_.y;
+    }
+    ~Eagle_base()
+    {
+        UnloadTexture(graphics_);
+    }
+    void Update()
+    {
+        // idk
+    }
+    void Draw()
+    {
+        DrawTextureRec(graphics_, framerec_, pos_, WHITE);
+    }
+    void OnCollision(uint8_t other_id)
+    {
+
+        switch (other_id)
+        {
+            case 5:
+                destroyable_ = true;
+                break;
+            default:
+                break;
+        }
+    }
+};
+
+
 #endif // SRC_TANK_BLOCK_H

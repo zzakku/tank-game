@@ -134,7 +134,7 @@ void Player::OnCollision(uint8_t other_id)
   {
     case 1:
     break;
-    case 2: case 3: case 6:
+    case 2: case 3: case 6: case 9:
     switch (direction_)
     {
       case up:

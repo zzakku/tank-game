@@ -34,6 +34,8 @@ class EntityCreator
     std::unique_ptr<Entity> CreateProjectile(int x = 0, int y = 0, DirectionFacing direction = up);
     std::unique_ptr<Entity> CreateInvisibleWall(int x, int y, bool is_horizontal);
     std::unique_ptr<Entity> CreateExplosion(int x, int y);
+    std::unique_ptr<Entity> CreateEagle_base(int x, int y);
+
 };
 
 // Обработчик уровней используется сценой для загрузки данных из файла .tmj...

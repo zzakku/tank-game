@@ -44,3 +44,8 @@ std::unique_ptr<Entity> EntityCreator::CreateExplosion(int x, int y)
 {
     return std::make_unique<Explosion>(x,y);    
 }
+
+std::unique_ptr<Entity> EntityCreator::CreateEagle_base(int x, int y)
+{
+    return std::make_unique<Eagle_base>(x,y);
+}
