@@ -160,7 +160,10 @@ class Invisible_entity : public Entity
         }
         else{
             hitbox_ = {0.0f, 0.0f, 20.0f, 230.0f};
-        }    
+        }
+        hitbox_.x = pos_.x;
+        hitbox_.y = pos_.y;
+
     } 
     void Update()
     {
@@ -172,7 +175,7 @@ class Invisible_entity : public Entity
     }
     void OnCollision(uint8_t other_id)
     {
-        // В оригинальной игре куст ни на что не реагировал
+        
     }
 };
 
