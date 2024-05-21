@@ -257,23 +257,85 @@ void Scene::ProcessTiles(tson::Layer& layer, RaylibTilesonData* data)
 
         if (corners[0])
         {
-            walls_.insert(walls_.begin(), creator_->CreateWall(tilematerial, position.x, position.y + 8));
-            (*walls_.begin())->SetScene(this);
+            if (tilematerial == brick)
+            {
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x, position.y + 8, 0));
+                (*walls_.begin())->SetScene(this);      
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x + 4, position.y + 8, 1));
+                (*walls_.begin())->SetScene(this); 
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x, position.y + 8 + 4, 2));
+                (*walls_.begin())->SetScene(this); 
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x + 4, position.y + 8 + 4, 3));
+                (*walls_.begin())->SetScene(this);           
+            }
+            else
+            {
+                walls_.insert(walls_.begin(), creator_->CreateOtherWall(tilematerial, position.x, position.y + 8));
+                (*walls_.begin())->SetScene(this);
+            }
         }
         if (corners[1])
         {
-            walls_.insert(walls_.begin(), creator_->CreateWall(tilematerial, position.x + 8, position.y + 8));
-            (*walls_.begin())->SetScene(this);
+            if (tilematerial == brick)
+            {
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x + 8, position.y + 8, 0));
+                (*walls_.begin())->SetScene(this);      
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x + 8 + 4, position.y + 8, 1));
+                (*walls_.begin())->SetScene(this); 
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x + 8, position.y + 8 + 4, 2));
+                (*walls_.begin())->SetScene(this); 
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x + 8 + 4, position.y + 8 + 4, 3));
+                (*walls_.begin())->SetScene(this);           
+            }
+            else
+            {
+                walls_.insert(walls_.begin(), creator_->CreateOtherWall(tilematerial, position.x + 8, position.y + 8));
+                (*walls_.begin())->SetScene(this);
+            }
+//            walls_.insert(walls_.begin(), creator_->CreateWall(tilematerial, position.x + 8, position.y + 8));
+//            (*walls_.begin())->SetScene(this);
         }
         if (corners[2])
         {
-            walls_.insert(walls_.begin(), creator_->CreateWall(tilematerial, position.x, position.y + 8 + 8));
-            (*walls_.begin())->SetScene(this);
+            if (tilematerial == brick)
+            {
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x, position.y + 8 + 8, 0));
+                (*walls_.begin())->SetScene(this);      
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x + 4, position.y + 8 + 8, 1));
+                (*walls_.begin())->SetScene(this); 
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x, position.y + 8 + 8 + 4, 2));
+                (*walls_.begin())->SetScene(this); 
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x + 4, position.y + 8 + 8 + 4, 3));
+                (*walls_.begin())->SetScene(this);           
+            }
+            else
+            {
+                walls_.insert(walls_.begin(), creator_->CreateOtherWall(tilematerial, position.x, position.y + 8 + 8));
+                (*walls_.begin())->SetScene(this);
+            }
+//            walls_.insert(walls_.begin(), creator_->CreateWall(tilematerial, position.x, position.y + 8 + 8));
+//            (*walls_.begin())->SetScene(this);
         }
         if (corners[3])
         {
-            walls_.insert(walls_.begin(), creator_->CreateWall(tilematerial, position.x + 8, position.y + 8 + 8));
-            (*walls_.begin())->SetScene(this);
+            if (tilematerial == brick)
+            {
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x + 8, position.y + 8 + 8, 0));
+                (*walls_.begin())->SetScene(this);      
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x + 8 + 4, position.y + 8 + 8, 1));
+                (*walls_.begin())->SetScene(this); 
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x + 8, position.y + 8 + 8 + 4, 2));
+                (*walls_.begin())->SetScene(this); 
+                walls_.insert(walls_.begin(), creator_->CreateBrickWall(position.x + 8 + 4, position.y + 8 + 8 + 4, 3));
+                (*walls_.begin())->SetScene(this);           
+            }
+            else
+            {
+                walls_.insert(walls_.begin(), creator_->CreateOtherWall(tilematerial, position.x + 8, position.y + 8 + 8));
+                (*walls_.begin())->SetScene(this);
+            }
+//            walls_.insert(walls_.begin(), creator_->CreateWall(tilematerial, position.x + 8, position.y + 8 + 8));
+//            (*walls_.begin())->SetScene(this);
         }
     }   
 }

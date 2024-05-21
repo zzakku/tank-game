@@ -5,12 +5,21 @@
 #include "explosion.h"
 
 std::unique_ptr<Entity> EntityCreator::CreatePlayer() { return std::make_unique<Player>(); } // new Player(); }
-std::unique_ptr<Entity> EntityCreator::CreateWall(TileMaterial material, int x, int y)
+std::unique_ptr<Entity> EntityCreator::CreateBrickWall(int x, int y, uint8_t corner)
+    {
+        return std::make_unique<Block>(x, y, corner);
+    }
+std::unique_ptr<Entity> EntityCreator::CreateOtherWall(TileMaterial material, int x, int y)
     {
         switch(material)
         {
             case brick:
-            return std::make_unique<Block>(x, y);
+//            for (int i = 0; i < 4; i++)
+//            {
+//            return std::make_unique<Block>(x, y,i);                
+//            }
+//            return std::make_unique<Block>(x, y);
+            return nullptr;
             break;
             case concrete:
             return std::make_unique<Concrete>(x, y);
