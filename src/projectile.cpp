@@ -11,12 +11,15 @@ void Projectile::Update()
         case left:
         pos_.x -= movespeed_;
         framerec_.x = static_cast<float>((graphics_.width/4)*4); 
+        break;
         case up:
         pos_.y -= movespeed_;
-        framerec_.x = static_cast<float>((graphics_.width/4)*1);  
+        framerec_.x = static_cast<float>((graphics_.width/4)*1);
+        break;  
         case down:
         pos_.y += movespeed_;
-        framerec_.x = static_cast<float>((graphics_.width/4)*3);            
+        framerec_.x = static_cast<float>((graphics_.width/4)*3);
+        break;            
     }
 
     hitbox_.x = pos_.x;
