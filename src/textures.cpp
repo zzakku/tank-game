@@ -10,6 +10,8 @@ namespace textures
         texture_map["blocks"] = LoadTexture("res/tileset.png");
         texture_map["projectile"] = LoadTexture("res/projectile.png");
         texture_map["explosion"] = LoadTexture("res/explosion.png");
+        texture_map["logo"] = LoadTexture("res/logo.png");
+        texture_map["border"] = LoadTexture("res/border.png");
     }
 
     void UnloadTextures()
