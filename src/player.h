@@ -22,6 +22,8 @@ class Player: public Entity
     int framecounter_; // Счётчик, отслеживающий удерживание ввода игроком (чтобы "двигать" анимацию)
     DirectionFacing direction_; // Куда смотрит дуло танка?
     float movespeed_; // Скорость передвижения танка
+    bool reloaded_bullet_; // Способен ли выстрельнуть
+    int cooldawn_; // Время перезарядки 
     public:
     Player();
     ~Player();
