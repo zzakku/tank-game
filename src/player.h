@@ -60,4 +60,24 @@ class Player: public Entity
 // Также есть эффекты спавна и взрывы, посмотрите, как они ведут себя в оригинальной игре
 // Ещё игроку надо прописать эффект бонуса "неуязвимость"
 
+class Enemy: public Entity
+{
+private:
+    uint8_t hp_; // Сколько попаданий пуль танк выдержит
+    uint8_t grade_; // Уровень прокачки танка (нужно допилить павер-апы...)
+    Rectangle framerec_; // Прямоугольник, в который мы помещаем текущий кадр анимации
+    Texture2D graphics_ = textures::GetTexture("enemy"); // Текстура, откуда мы берём кадры анимации игрока
+    int currentframe_; // Текущий кадр анимации
+    int framespeed_; // Скорость анимации (FPS)
+    int framecounter_; // Счётчик, отслеживающий удерживание ввода игроком (чтобы "двигать" анимацию)
+    DirectionFacing direction_; // Куда смотрит дуло танка?
+    float movespeed_; // Скорость передвижения танка
+public:
+    Enemy();
+    ~Enemy();
+    void Update();
+    void Draw();
+    void OnCollision(uint8_t other_id);
+};
+
 #endif // TANK_SRC_PLAYER_H_

@@ -28,12 +28,15 @@ class EntityCreator
     std::vector<Texture2D> textures_;
     public:
     EntityCreator();
-    std::unique_ptr<Entity> CreatePlayer(); 
+    std::unique_ptr<Entity> CreatePlayer();
+    std::unique_ptr<Entity> CreateEnemy();
     std::unique_ptr<Entity> CreateBrickWall(int x = 0, int y = 0, uint8_t corner = 0); 
     std::unique_ptr<Entity> CreateOtherWall(TileMaterial material, int x = 0, int y = 0); // Создать блок 8x8 на позиции виртуального полотна (x,y)
     std::unique_ptr<Entity> CreateProjectile(int x = 0, int y = 0, DirectionFacing direction = up);
     std::unique_ptr<Entity> CreateInvisibleWall(int x, int y, bool is_horizontal);
     std::unique_ptr<Entity> CreateExplosion(int x, int y);
+    std::unique_ptr<Entity> CreateEagle_base(int x, int y);
+
 };
 
 // Обработчик уровней используется сценой для загрузки данных из файла .tmj...

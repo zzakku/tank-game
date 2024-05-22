@@ -12,6 +12,8 @@ namespace textures
         texture_map["explosion"] = LoadTexture("res/explosion.png");
         texture_map["logo"] = LoadTexture("res/logo.png");
         texture_map["border"] = LoadTexture("res/border.png");
+        texture_map["eagle"] = LoadTexture("res/eagle.png");
+        texture_map["enemy"] = LoadTexture("res/enemy.png");
     }
 
     void UnloadTextures()
