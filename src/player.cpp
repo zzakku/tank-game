@@ -14,7 +14,7 @@ Player::Player()
     framespeed_ = 25;
     framecounter_ = 0;
     pos_ = { 104.0f, 180.0f};
-    hitbox_ = {0.0f, 0.0f, 15.0f, 15.0f};
+    hitbox_ = {0.0f, 0.0f, 16.0f, 16.0f};
     direction_ = up;
     movespeed_ = 0.5f;
     reloaded_bullet_ = true;
@@ -35,15 +35,11 @@ void Player::Draw()
 void Player::Update()
 {
 
-    if (IsKeyDown(KEY_SPACE))
-    {
-        //actives_.push_back(creator_->CreateBullet());
-    }
-
     if (IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_LEFT)) 
     {
       pos_.x += movespeed_;
       direction_ = right;
+      currentspeed_ = movespeed_;
 
       framecounter_++;
       
@@ -57,11 +53,12 @@ void Player::Update()
       framerec_.x = static_cast<float>(currentframe_)*static_cast<float>(graphics_.width/2);
       framerec_.y = 1*static_cast<float>(graphics_.height/4) - 0.1f; // <- КОСТЫЛЬ >:(, но в целом работает
     }
-    if (IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_RIGHT))
+    else if (IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_RIGHT))
     {
       pos_.x -= movespeed_;
       framecounter_++;
       direction_ = left;
+      currentspeed_ = movespeed_;
       
       if (framecounter_ >= (60/framespeed_))
       {
@@ -73,11 +70,12 @@ void Player::Update()
       framerec_.x = static_cast<float>(currentframe_)*static_cast<float>(graphics_.width/2);
       framerec_.y = 3*static_cast<float>(graphics_.height/4) - 0.1f;
     }
-    if (IsKeyDown(KEY_UP) && !IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_DOWN))
+    else if (IsKeyDown(KEY_UP) && !IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_DOWN))
     {
       pos_.y -= movespeed_;
       framecounter_++;
       direction_ = up;
+      currentspeed_ = movespeed_;
       
       if (framecounter_ >= (60/framespeed_))
       {
@@ -89,11 +87,12 @@ void Player::Update()
       framerec_.x = static_cast<float>(currentframe_)*static_cast<float>(graphics_.width/2);
       framerec_.y = -0.1f;
     }      
-    if (IsKeyDown(KEY_DOWN) && !IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_UP))
+    else if (IsKeyDown(KEY_DOWN) && !IsKeyDown(KEY_LEFT) && !IsKeyDown(KEY_RIGHT) && !IsKeyDown(KEY_UP))
     {
       pos_.y += movespeed_;
       framecounter_++;
       direction_ = down;
+      currentspeed_ = movespeed_;
       
       if (framecounter_ >= (60/framespeed_))
       {
@@ -105,6 +104,10 @@ void Player::Update()
       framerec_.x = static_cast<float>(currentframe_)*static_cast<float>(graphics_.width/2);
       framerec_.y = 2*static_cast<float>(graphics_.height/4) - 0.5f;
     }    
+    else
+    {
+      currentspeed_ = 0.0f;
+    }
 
     hitbox_.x = pos_.x;
     hitbox_.y = pos_.y;
@@ -116,28 +119,25 @@ void Player::Update()
       reloaded_bullet_ = true;
     }
 
-    if (IsKeyPressed(KEY_Z))
+    if (IsKeyPressed(KEY_Z) && reloaded_bullet_ == true)
     {
-      if (reloaded_bullet_ == true){
       sounds::PlaySFX("bullet");
       reloaded_bullet_ = false;
       cooldawn_ = 0;
-      switch (direction_){
+      switch (direction_)
+      {
         case up:
         scene_->SpawnProjectile(pos_.x + 6.0f, pos_.y - 5.0f, direction_);
         break;
         case right:
-        scene_->SpawnProjectile(pos_.x + 16.0f, pos_.y + 7.0f, direction_);
+        scene_->SpawnProjectile(pos_.x + 16.5f, pos_.y + 7.0f, direction_);
         break;
         case down:
-        scene_->SpawnProjectile(pos_.x + 6.0f, pos_.y + 16.0f, direction_);
+        scene_->SpawnProjectile(pos_.x + 6.0f, pos_.y + 16.5f, direction_);
         break;
         case left:
         scene_->SpawnProjectile(pos_.x - 5.0f, pos_.y + 7.0f, direction_);
         break;
-
-      }
-
       }
     }
 }
@@ -149,6 +149,8 @@ void Player::OnCollision(uint8_t other_id)
     case 1:
     break;
     case 2: case 3: case 6: case 9: case 8:
+    if (currentspeed_ != 0)
+    {
     switch (direction_)
     {
       case up:
@@ -168,11 +170,13 @@ void Player::OnCollision(uint8_t other_id)
       hitbox_.x = pos_.x;
       break;
     }
+    }
     default:
     break;
   }
 }
 
+// ВРАГ
 
 Enemy::Enemy()
 {
@@ -185,7 +189,7 @@ Enemy::Enemy()
     framespeed_ = 25;
     framecounter_ = 0;
     pos_ = { 32.0f, 32.0f};
-    hitbox_ = {0.0f, 0.0f, 15.0f, 15.0f};
+    hitbox_ = {0.0f, 0.0f, 16.0f, 16.0f};
     direction_ = down;
     movespeed_ = 0.5f;
 }

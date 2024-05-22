@@ -24,6 +24,7 @@ class Player: public Entity
     float movespeed_; // Скорость передвижения танка
     bool reloaded_bullet_; // Способен ли выстрельнуть
     int cooldawn_; // Время перезарядки 
+    float currentspeed_; // Скорость танка в текущий момент
     public:
     Player();
     ~Player();
@@ -32,27 +33,6 @@ class Player: public Entity
     void OnCollision(uint8_t other_id);
     void Upgrade(); // Здесь будет подбор бонуса "звезда"
 };
-
-
-
-// пока возможно временно - пуля имеет ID 5
-
-//Player::Player()
-//{
-//    id_ = 1;
-//    hp_ = 1;
-//    grade_ = 1;
-//    graphics_ = LoadTexture("res/player.png");
-//    SetTextureWrap(graphics_, TEXTURE_WRAP_CLAMP); // Задаёт способ отображения текстуры, часть которой вылезает за пределы картинки
-//    framerec_ = { 0.0f, 0.0f, static_cast<float>(graphics_.width/2), static_cast<float>(graphics_.height/4)};
-//    currentframe_ = 0;
-//    framespeed_ = 25;
-//    framecounter_ = 0;
-//    pos_ = { 0.0f, 0.0f};
-//    hitbox_ = {0.0f, 0.0f, 15.0f, 15.0f};
-//    direction_ = up;
-//    movespeed_ = 0.5f;
-//}
 
 
 // Мне лень создавать хедеры-заглушки для пуль и врагов, но вот моя идея пока что:
@@ -75,6 +55,7 @@ private:
     int framecounter_; // Счётчик кадров для анимации
     DirectionFacing direction_; // Куда смотрит дуло танка?
     float movespeed_; // Скорость передвижения танка
+    float currentspeed_; // Скорость танка в текущий момент
 public:
     Enemy();
     ~Enemy();
