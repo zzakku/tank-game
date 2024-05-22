@@ -109,8 +109,9 @@ void Player::Update()
 
     if (IsKeyPressed(KEY_Z))
     {
-      Sound sound_append_bullet = LoadSound("res/soundtracks/Gun.wav");
-      PlaySound(sound_append_bullet);
+//      Sound sound_append_bullet = LoadSound("res/soundtracks/Gun.wav");
+//      PlaySound(sound_append_bullet);
+      sounds::PlaySFX("bullet");
       //std::cout<<"lol";
       switch (direction_){
         case up:

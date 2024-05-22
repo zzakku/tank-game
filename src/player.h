@@ -5,6 +5,7 @@
 #include "entity.h"
 #include <stdint.h>
 #include "textures.h"
+#include "sound.h"
 
 
 // TO-DO: Класс "игрок", реализовать (потенциально) поддержку двух игроков и "автопилота" в демо-режиме
