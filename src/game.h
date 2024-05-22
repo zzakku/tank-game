@@ -45,7 +45,7 @@ public:
 
     void Update() override
     {
-        SetTextureFilter(logo_, TEXTURE_FILTER_TRILINEAR);
+        SetTextureFilter(logo_, TEXTURE_FILTER_BILINEAR);
         lifetime_--;
         if (lifetime_ <= 25)
         {
@@ -78,9 +78,11 @@ class Game : public ScreenState
     public:
     Game()
     {
+        sounds::InitSounds();
         Map map = LoadTiled("res/levels/stage1.tmj");
         currentscene_ = std::make_unique<Scene>();
         currentscene_->ProcessLevel(map);
+        sounds::StartBGM("electrophilia");
     }
     void RespawnEnemy();
     void RespawnPlayer();
@@ -95,6 +97,7 @@ class Game : public ScreenState
         if (!paused_)
         {
             currentscene_->Update();
+            sounds::UpdateBGM("electrophilia");
         }
     }
     void Draw() override
@@ -105,6 +108,33 @@ class Game : public ScreenState
         {
             DrawTextEx(fonts::GetFont("gametext"), "PAUSED", {101.0f, 113.0f}, 8, 0, RED);
         }
+    }
+};
+
+class TitleScreen : public ScreenState
+{
+    private:
+    bool can_proceed_;
+    char titletext[256] = ".######...####...##..##..##..##.\n...##....##..##..###.##..##.##..\n...##....######..##.###..####...\n...##....##..##..##..##..##.##..\n...##....##..##..##..##..##..##.\n................................";
+    //    char titletext[75] = " #### #### #  # # #\n  #  #  # ## # ##\n #  #### # ## ##\n#  #  # #  # #  #";
+    public:
+    void Update() override
+    {
+        if (IsKeyPressed(KEY_ENTER))
+        {
+            can_proceed_ = true;
+        }
+    }
+
+    void Draw() override
+    {
+        DrawTextEx(fonts::GetFont("gametext"), titletext, {0.0f, 10.0f}, 8, 0, WHITE);        
+        DrawTextEx(fonts::GetFont("gametext"), "PUSH ENTER", {80.0f, 112.0f}, 8, 0, WHITE);
+        DrawTextEx(fonts::GetFont("gametext"), "(c) KUZKULCHIK 2024", {88.0f, 210.0f}, 8, 0, WHITE);
+    }   
+    bool CanProceed()
+    {
+        return can_proceed_;
     }
 };
 

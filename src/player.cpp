@@ -118,14 +118,10 @@ void Player::Update()
 
     if (IsKeyPressed(KEY_Z))
     {
+      sounds::PlaySFX("bullet");
       if (reloaded_bullet_ == true){
       reloaded_bullet_ = false;
       cooldawn_ = 0;
-
-
-      Sound sound_append_bullet = LoadSound("res/soundtracks/Gun.wav");
-      PlaySound(sound_append_bullet);
-      //std::cout<<"lol";
       switch (direction_){
         case up:
         scene_->SpawnProjectile(pos_.x + 6.0f, pos_.y - 5.0f, direction_);

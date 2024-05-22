@@ -5,6 +5,7 @@
 #include "entity.h"
 #include <stdint.h>
 #include "textures.h"
+#include "sound.h"
 
 class Projectile : public Entity
 {

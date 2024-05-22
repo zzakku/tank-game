@@ -15,6 +15,7 @@ set(${project}_SOURCES
         src/raylib-tileson/raylib-tileson.cpp
         src/textures.cpp
         src/font.cpp
+        src/sound.cpp
         src/scene.cpp 
         src/player.cpp
         src/block.h

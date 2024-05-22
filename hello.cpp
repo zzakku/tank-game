@@ -53,6 +53,8 @@ int main()
   Scene mngtest;
 
   Game gm;
+
+  TitleScreen tscr;
 //  mngtest.ProcessLevel(map);
 
   while (!WindowShouldClose()) { // Окно закрывается нажатием ESC или крестика
@@ -68,13 +70,22 @@ int main()
       }
       else
       {
-        currentstate = game;
+        currentstate = titlescreen;
       }
       break;
       case game:
       gm.Update();
 //      mngtest.Update();
       break;
+      case titlescreen:
+      if (!tscr.CanProceed())
+      {
+        tscr.Update();
+      }
+      else
+      {
+        currentstate = game;
+      }
       default:
       break;
     }
@@ -88,6 +99,9 @@ int main()
       {
         case teamlogo:
         s1.Draw();
+        break;
+        case titlescreen:
+        tscr.Draw();
         break;
         case game:
         ClearBackground(bg);
@@ -111,6 +125,7 @@ int main()
     {
       case teamlogo:
       case game:
+      case titlescreen:
       DrawTexturePro(virtual_canvas.texture, Rectangle{ 0.0f, 0.0f, (float)virtual_canvas.texture.width, (float)-virtual_canvas.texture.height },
                       Rectangle{ (GetScreenWidth() - ((float)game_screen_width*scale))*0.5f, (GetScreenHeight() - ((float)game_screen_height*scale))*0.5f,
                       (float)game_screen_width*scale, (float)game_screen_height*scale }, Vector2{ 0, 0 }, 0.0f, WHITE);      
