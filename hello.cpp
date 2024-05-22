@@ -142,6 +142,8 @@ int main()
 
   mngtest.Clear();
   textures::UnloadTextures();
+  fonts::UnloadFonts();
+  sounds::UnloadSounds();
   UnloadRenderTexture(virtual_canvas);
   UnloadMap(map);
 

@@ -118,8 +118,8 @@ void Player::Update()
 
     if (IsKeyPressed(KEY_Z))
     {
-      sounds::PlaySFX("bullet");
       if (reloaded_bullet_ == true){
+      sounds::PlaySFX("bullet");
       reloaded_bullet_ = false;
       cooldawn_ = 0;
       switch (direction_){
