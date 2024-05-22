@@ -9,7 +9,9 @@ Scene::Scene()
 
     walls_.insert(walls_.begin(), creator_->CreateEagle_base(96.0f, 208.0f));
 
+    actives_.insert(actives_.begin(), creator_->CreateEnemy());
     actives_.insert(actives_.begin(), creator_->CreatePlayer());
+
     (*actives_.begin())->SetScene(this);
 }
 
@@ -33,6 +35,7 @@ void Scene::Clear()
 void Scene::SpawnProjectile(int x, int y, DirectionFacing direction)
 {
     actives_.insert(actives_.begin(), creator_->CreateProjectile(x,y,direction));
+    //actives_.push_back(creator_->CreateProjectile(x, y, direction));
 
 //    std::list<std::unique_ptr<Entity>>::iterator iter = actives_.begin();   
 

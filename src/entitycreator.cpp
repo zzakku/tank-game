@@ -5,6 +5,9 @@
 #include "explosion.h"
 
 std::unique_ptr<Entity> EntityCreator::CreatePlayer() { return std::make_unique<Player>(); } // new Player(); }
+
+std::unique_ptr<Entity> EntityCreator::CreateEnemy() { return std::make_unique<Enemy>(); }
+
 std::unique_ptr<Entity> EntityCreator::CreateBrickWall(int x, int y, uint8_t corner)
     {
         return std::make_unique<Block>(x, y, corner);
