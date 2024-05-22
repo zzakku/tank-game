@@ -64,12 +64,12 @@ class Enemy: public Entity
 {
 private:
     uint8_t hp_; // Сколько попаданий пуль танк выдержит
-    uint8_t grade_; // Уровень прокачки танка (нужно допилить павер-апы...)
+    uint8_t grade_; // Уровень прокачки танка
     Rectangle framerec_; // Прямоугольник, в который мы помещаем текущий кадр анимации
-    Texture2D graphics_ = textures::GetTexture("enemy"); // Текстура, откуда мы берём кадры анимации игрока
+    Texture2D graphics_ = textures::GetTexture("enemy"); // Текстура, откуда мы берём кадры анимации
     int currentframe_; // Текущий кадр анимации
     int framespeed_; // Скорость анимации (FPS)
-    int framecounter_; // Счётчик, отслеживающий удерживание ввода игроком (чтобы "двигать" анимацию)
+    int framecounter_; // Счётчик кадров для анимации
     DirectionFacing direction_; // Куда смотрит дуло танка?
     float movespeed_; // Скорость передвижения танка
 public:

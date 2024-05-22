@@ -19,9 +19,13 @@ namespace textures
     void UnloadTextures()
     {
         UnloadTexture(texture_map["player"]);
-        UnloadTexture(texture_map["tileset"]);
+        UnloadTexture(texture_map["blocks"]);
         UnloadTexture(texture_map["projectile"]);
         UnloadTexture(texture_map["explosion"]);
+        UnloadTexture(texture_map["logo"]);
+        UnloadTexture(texture_map["border"]);
+        UnloadTexture(texture_map["eagle"]);
+        UnloadTexture(texture_map["enemy"]);
     }
 
     Texture2D GetTexture(const std::string& key)
