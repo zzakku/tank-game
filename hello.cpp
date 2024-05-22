@@ -23,6 +23,7 @@ enum screenstate
 int main()
 {
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Hello, raylib!");
+  InitAudioDevice();      // Initialize audio device
   SetTargetFPS(60);
   SplashScreen s1;
 //  s1.Draw();

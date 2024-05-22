@@ -35,10 +35,13 @@ void Projectile::Draw()
 
 void Projectile::OnCollision(uint8_t other_id)
 {
+  Sound sound_expload = LoadSound("res/soundtracks/Explosion.wav");
   switch (other_id)
   {
   case 1: case 2: case 3: case 5: case 6: case 9: case 8:
     destroyable_ = true;
+    //Sound sound_expload = LoadSound("..\\res\\soundtracks\\Explosion.wav");
+    PlaySound(sound_expload);
     scene_->SpawnExplosion(pos_.x - hitbox_.width, pos_.y - hitbox_.height);
     break;
     default:
