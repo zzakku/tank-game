@@ -17,6 +17,8 @@ Player::Player()
     hitbox_ = {0.0f, 0.0f, 15.0f, 15.0f};
     direction_ = up;
     movespeed_ = 0.5f;
+    reloaded_bullet_ = true;
+    cooldawn_ = 60;
 }
 
 Player::~Player()
@@ -107,8 +109,20 @@ void Player::Update()
     hitbox_.x = pos_.x;
     hitbox_.y = pos_.y;
 
+    if (cooldawn_ < 60){
+      cooldawn_+=1;
+    }
+    else{
+      reloaded_bullet_ = true;
+    }
+
     if (IsKeyPressed(KEY_Z))
     {
+      if (reloaded_bullet_ == true){
+      reloaded_bullet_ = false;
+      cooldawn_ = 0;
+
+
       Sound sound_append_bullet = LoadSound("res/soundtracks/Gun.wav");
       PlaySound(sound_append_bullet);
       //std::cout<<"lol";
@@ -128,6 +142,7 @@ void Player::Update()
 
       }
 
+      }
     }
 }
 
