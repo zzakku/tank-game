@@ -18,7 +18,7 @@ class Projectile : public Entity
     Projectile()
     {
         id_ = 5;
-        movespeed_ = 1.0f;
+        movespeed_ = 2.0f;
         hitbox_ = {0.0f, 0.0f, 5.0f, 5.0f};
         framerec_ = { 0.0f, 0.0f, static_cast<float>(graphics_.width/4), static_cast<float>(graphics_.height)};
 //        pos_ = {0.0f, 0.0f};

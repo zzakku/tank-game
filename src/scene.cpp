@@ -10,6 +10,9 @@ Scene::Scene()
     walls_.insert(walls_.begin(), creator_->CreateEagle_base(104.0f, 208.0f)); // орел появился
 
     actives_.insert(actives_.begin(), creator_->CreateEnemy());
+
+    (*actives_.begin())->SetScene(this);
+    
     actives_.insert(actives_.begin(), creator_->CreatePlayer());
 
     (*actives_.begin())->SetScene(this);
