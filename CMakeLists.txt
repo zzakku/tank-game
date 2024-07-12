@@ -18,6 +18,7 @@ set(${project}_SOURCES
         src/sound.cpp
         src/scene.cpp 
         src/player.cpp
+        src/enemy.cpp
         src/block.h
         src/projectile.cpp
         src/explosion.h

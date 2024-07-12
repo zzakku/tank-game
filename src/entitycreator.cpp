@@ -1,5 +1,6 @@
 #include "scene.h"
 #include "player.h"
+#include "enemy.h"
 #include "block.h"
 #include "projectile.h"
 #include "explosion.h"
